@@ -1,0 +1,12 @@
+name: new-environment
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.8
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - numpy
+  - pip
