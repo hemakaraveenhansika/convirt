@@ -10,3 +10,5 @@ dependencies:
   - scikit-learn
   - numpy
   - pip
+  -
+  prefix: /opt/conda/envs/new-environment
