@@ -11,4 +11,4 @@ dependencies:
   - numpy
   - pip
   -
-  prefix: /opt/conda/envs/new-environment
+#  prefix: /opt/conda/envs/new-environment
