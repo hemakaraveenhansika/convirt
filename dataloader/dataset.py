@@ -54,6 +54,7 @@ class ClrDataset(Dataset):
 
         #chooosig a phrase
         if not self.text_from_files:
+            print('image: ', img_name)
             text = self.clr_frame.iloc[idx, self.text_col]
             text = text.replace("\n", "")
             ls_text = text.split(".")
@@ -78,6 +79,6 @@ class ClrDataset(Dataset):
 
         if self.transform:
             sample = self.transform(sample)
-        # print('image: ', img_name, 'phrase: ', phrase)
+        print('image: ', img_name, 'phrase: ', phrase)
         # print('get sample')
         return sample
