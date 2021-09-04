@@ -1,4 +1,4 @@
-batch_size: 32
+batch_size: 20
 epochs: 5
 eval_every_n_epochs: 5
 fine_tune_from: Jan16_02-27-36_edu-GPU-Linux
