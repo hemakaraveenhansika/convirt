@@ -48,6 +48,7 @@ class DataSetWrapper(object):
                                     transform=SimCLRDataTransform(data_augment)
                                     )
         print("train_dataset_data")
+        print(train_dataset)
         for train_dataset_data in train_dataset:
             print(train_dataset_data)
 
