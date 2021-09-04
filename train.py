@@ -176,6 +176,7 @@ class SimCLR(object):
 
                 valid_loss += loss.item()
                 counter += 1
+            print(valid_loss ,counter)
             valid_loss /= counter
         model.train()
         # model_bert.train()
