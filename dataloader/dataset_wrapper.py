@@ -94,7 +94,7 @@ class DataSetWrapper(object):
 
         valid_loader = DataLoader(train_dataset, batch_size=self.batch_size, sampler=valid_sampler,
                                   num_workers=self.num_workers, drop_last=True)
-        print("load train_loader....")
+        print("load train_loader....", train_sampler, valid_sampler)
         print(len(train_loader))
         return train_loader, valid_loader
 

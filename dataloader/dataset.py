@@ -44,10 +44,10 @@ class ClrDataset(Dataset):
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
             idx = idx.tolist()
-        print(self.img_path_col)
-        print(self.clr_frame.iloc[idx, self.img_path_col])
+
         img_name = os.path.join(self.img_root_dir, self.clr_frame.iloc[idx, self.img_path_col])
         image = Image.open(img_name)
+
         if self.input_shape[2] == 3:
             image = image.convert('RGB')
         
@@ -78,6 +78,6 @@ class ClrDataset(Dataset):
 
         if self.transform:
             sample = self.transform(sample)
-        print('image: ', image, 'phrase: ', phrase)
-        print('get sample')
+        print('image: ', img_name, 'phrase: ', phrase)
+        # print('get sample')
         return sample
