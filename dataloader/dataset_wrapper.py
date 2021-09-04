@@ -47,8 +47,9 @@ class DataSetWrapper(object):
                                     text_root_dir = self.text_root_dir, 
                                     transform=SimCLRDataTransform(data_augment)
                                     )
+        print("num_train len : ", len(train_dataset))
         print("train_dataset_data1")
-        print(train_dataset[0])
+        print(train_dataset[0]['phrase'])
         print("train_dataset_data2")
 
         # for train_dataset_data in train_dataset:
@@ -78,7 +79,6 @@ class DataSetWrapper(object):
     def get_train_validation_data_loaders(self, train_dataset):
         # obtain training indices that will be used for validation
         num_train = len(train_dataset)
-        print("num_train len : ", num_train)
         indices = list(range(num_train))
         np.random.shuffle(indices)
 
