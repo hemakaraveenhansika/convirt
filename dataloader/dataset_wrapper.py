@@ -51,8 +51,8 @@ class DataSetWrapper(object):
         # print("train_dataset_data1")
         # print(train_dataset[0]['phrase'])
         # print("train_dataset_data2")
-        for ais, als in train_dataset:
-            print(ais)
+        # for ais, als in train_dataset:
+        #     print(ais)
 
         # train_dataset = datasets.STL10('./data', split='train+unlabeled', download=True,
         #                                transform=SimCLRDataTransform(data_augment))
