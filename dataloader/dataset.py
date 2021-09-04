@@ -11,7 +11,7 @@ import pickle
 
 class ClrDataset(Dataset):
     """Contrastive Learning Representations Dataset."""
-
+    print("Contrastive Learning Representations Dataset - ClrDataset")
     def __init__(self, 
                 csv_file, 
                 img_root_dir, 
@@ -80,4 +80,5 @@ class ClrDataset(Dataset):
         if self.transform:
             sample = self.transform(sample)
         print('image: ', image, 'phrase: ', phrase)
+        print('get sample')
         return sample
