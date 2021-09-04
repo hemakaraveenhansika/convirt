@@ -51,9 +51,8 @@ class DataSetWrapper(object):
         # print("train_dataset_data1")
         # print(train_dataset[0]['phrase'])
         # print("train_dataset_data2")
-
-        # for train_dataset_data in train_dataset:
-        #     print(train_dataset_data)
+        for ais, als in train_dataset:
+            print(ais)
 
         # train_dataset = datasets.STL10('./data', split='train+unlabeled', download=True,
         #                                transform=SimCLRDataTransform(data_augment))
@@ -94,7 +93,9 @@ class DataSetWrapper(object):
 
         valid_loader = DataLoader(train_dataset, batch_size=self.batch_size, sampler=valid_sampler,
                                   num_workers=self.num_workers, drop_last=True)
-        print("load train_loader....", train_sampler, valid_sampler)
+        print("load train_loader....")
+        print(train_idx)
+        print(valid_idx)
         print(len(train_loader))
         return train_loader, valid_loader
 

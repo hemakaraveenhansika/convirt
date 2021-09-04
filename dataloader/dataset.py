@@ -78,6 +78,6 @@ class ClrDataset(Dataset):
 
         if self.transform:
             sample = self.transform(sample)
-        print('image: ', img_name, 'phrase: ', phrase)
+        # print('image: ', img_name, 'phrase: ', phrase)
         # print('get sample')
         return sample
