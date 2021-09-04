@@ -88,11 +88,13 @@ class DataSetWrapper(object):
         train_sampler = SubsetRandomSampler(train_idx)
         valid_sampler = SubsetRandomSampler(valid_idx)
 
-        train_loader = DataLoader(train_dataset, batch_size=self.batch_size, sampler=train_sampler,
-                                  num_workers=self.num_workers, drop_last=True, shuffle=False)
+        train_loader = DataLoader(train_dataset, batch_size=self.batch_size, num_workers=self.num_workers, drop_last=True, shuffle=False)
+        valid_loader = DataLoader(train_dataset, batch_size=self.batch_size, num_workers=self.num_workers, drop_last=True)
 
-        valid_loader = DataLoader(train_dataset, batch_size=self.batch_size, sampler=valid_sampler,
-                                  num_workers=self.num_workers, drop_last=True)
+        # train_loader = DataLoader(train_dataset, batch_size=self.batch_size, sampler=train_sampler,
+        #                           num_workers=self.num_workers, drop_last=True, shuffle=False)
+        # valid_loader = DataLoader(train_dataset, batch_size=self.batch_size, sampler=valid_sampler,
+        #                           num_workers=self.num_workers, drop_last=True)
         print("load train_loader....")
         print(train_idx)
         print(valid_idx)
