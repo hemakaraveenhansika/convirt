@@ -72,6 +72,7 @@ class DataSetWrapper(object):
     def get_train_validation_data_loaders(self, train_dataset):
         # obtain training indices that will be used for validation
         num_train = len(train_dataset)
+        print("num_train len : ", num_train)
         indices = list(range(num_train))
         np.random.shuffle(indices)
 
@@ -88,7 +89,7 @@ class DataSetWrapper(object):
         valid_loader = DataLoader(train_dataset, batch_size=self.batch_size, sampler=valid_sampler,
                                   num_workers=self.num_workers, drop_last=True)
         print("load train_loader....")
-        print(train_loader)
+        print(len(train_loader))
         return train_loader, valid_loader
 
 
