@@ -47,6 +47,9 @@ class DataSetWrapper(object):
                                     text_root_dir = self.text_root_dir, 
                                     transform=SimCLRDataTransform(data_augment)
                                     )
+        print("train_dataset_data")
+        for train_dataset_data in train_dataset:
+            print(train_dataset_data)
 
         # train_dataset = datasets.STL10('./data', split='train+unlabeled', download=True,
         #                                transform=SimCLRDataTransform(data_augment))
@@ -91,7 +94,6 @@ class DataSetWrapper(object):
         print("load train_loader....")
         print(len(train_loader))
         return train_loader, valid_loader
-
 
 class SimCLRDataTransform(object):
     def __init__(self, transform_image):
