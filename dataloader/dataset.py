@@ -29,7 +29,7 @@ class ClrDataset(Dataset):
             transform (callable, optional): Optional transform to be applied
                 on a sample.
         """
-        self.clr_frame = pd.read_csv(csv_file)
+        self.clr_frame = pd.read_csv(csv_file, nrows=400)   #read only first 400 rows
         self.img_root_dir = img_root_dir
         self.transform = transform
         self.input_shape = input_shape
@@ -79,6 +79,6 @@ class ClrDataset(Dataset):
 
         if self.transform:
             sample = self.transform(sample)
-        # print('image: ', img_name, 'phrase: ', phrase)
+        print('image: ', img_name, 'phrase: ', phrase)
         # print('get sample')
         return sample
