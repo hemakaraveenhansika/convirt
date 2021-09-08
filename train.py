@@ -35,6 +35,11 @@ def _save_config_file(model_checkpoints_folder):
         os.makedirs(model_checkpoints_folder)
         shutil.copy('./config.yaml', os.path.join(model_checkpoints_folder, 'config.yaml'))
 
+# def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
+#     torch.save(state, filename)
+#     if is_best:
+#         shutil.copyfile(filename, 'model_best.pth.tar')
+
 class SimCLR(object):
     def __init__(self, dataset, config):
         self.config = config
@@ -142,6 +147,8 @@ class SimCLR(object):
                 scheduler.step()
             self.writer.add_scalar('cosine_lr_decay', scheduler.get_lr()[0], global_step=n_iter)
 
+        print("Training has finished...")
+
     def _load_pre_trained_weights(self, model):
         try:
             checkpoints_folder = os.path.join('./runs', self.config['fine_tune_from'], 'checkpoints')
@@ -176,8 +183,9 @@ class SimCLR(object):
 
                 valid_loss += loss.item()
                 counter += 1
-            print(valid_loss ,counter)
+
             valid_loss /= counter
         model.train()
         # model_bert.train()
+        print("valid_loss : ", valid_loss)
         return valid_loss
