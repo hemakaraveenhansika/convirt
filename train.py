@@ -138,8 +138,9 @@ class SimCLR(object):
                 if valid_loss < best_valid_loss:
                     # save the model weights
                     best_valid_loss = valid_loss
-                    torch.save(model.state_dict(), os.path.join(model_checkpoints_folder, 'model.pth'))
-                    print("save the model weights", os.path.join(model_checkpoints_folder, 'model.pth'))
+                    # torch.save(model.state_dict(), os.path.join(model_checkpoints_folder, 'model.pth'))
+                    torch.save(model.state_dict(), '/kaggle/working/model.pth.tar')
+                    print("save the model checkpoint in /kaggle/working/model.pth.tar")
                 self.writer.add_scalar('validation_loss', valid_loss, global_step=valid_n_iter)
                 valid_n_iter += 1
 
