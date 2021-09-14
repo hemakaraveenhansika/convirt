@@ -90,7 +90,7 @@ class ModelCLR(nn.Module):
         https://www.sbert.net
         """
         outputs = self.bert_model(**encoded_inputs)
-        print("outputs")
+        print("text_encoder outputs")
         print(outputs)
 
         with torch.no_grad():
@@ -102,14 +102,17 @@ class ModelCLR(nn.Module):
         return out_emb
 
     def forward(self, xis, encoded_inputs):
-        print("forward layer")
+        print("\nforward layer")
         print("encoded_inputs:")
         print(encoded_inputs)
 
         h, zis = self.image_encoder(xis)
 
         zls = self.text_encoder(encoded_inputs)
+        print("end image_encoder, text_encoder")
+        print("\n zis")
         print(zis)
+        print("\n zls")
         print(zls)
 
         return zis, zls
