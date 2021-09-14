@@ -115,4 +115,11 @@ class ModelCLR(nn.Module):
         print("\n zls")
         print(zls)
 
+        print("Type of every element:", zis.dtype)
+        print("Number of axes:", zis.ndim)
+        print("Shape of tensor:", zis.shape)
+        # print("Elements along axis 0 of tensor:", rank_4_tensor.shape[0])
+        # print("Elements along the last axis of tensor:", rank_4_tensor.shape[-1])
+        # print("Total number of elements (3*2*4*5): ", tf.size(rank_4_tensor).numpy())
+
         return zis, zls
