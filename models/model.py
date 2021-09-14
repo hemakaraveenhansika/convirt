@@ -90,7 +90,9 @@ class ModelCLR(nn.Module):
         https://www.sbert.net
         """
         outputs = self.bert_model(**encoded_inputs)
-        
+        print("outputs")
+        print(outputs)
+
         with torch.no_grad():
             sentence_embeddings = self.mean_pooling(outputs, encoded_inputs['attention_mask']).half()
             x = self.bert_l1(sentence_embeddings)
@@ -100,9 +102,14 @@ class ModelCLR(nn.Module):
         return out_emb
 
     def forward(self, xis, encoded_inputs):
+        print("forward layer")
+        print("encoded_inputs:")
+        print(encoded_inputs)
 
         h, zis = self.image_encoder(xis)
 
         zls = self.text_encoder(encoded_inputs)
+        print(zis)
+        print(zls)
 
         return zis, zls
