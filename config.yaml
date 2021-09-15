@@ -1,7 +1,7 @@
 batch_size: 20
 epochs: 10
 eval_every_n_epochs: 2
-fine_tune_from: Jan16_02-27-36_edu-GPU-Linux
+fine_tune_from: convirt_epoch_10
 log_every_n_steps: 2
 learning_rate: 1e-4
 weight_decay: 1e-6
