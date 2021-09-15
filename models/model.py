@@ -41,7 +41,7 @@ class ModelCLR(nn.Module):
     def _get_res_basemodel(self, res_model_name):
         try:
             res_model = self.resnet_dict[res_model_name]
-            print("Image feature extractor:", res_model_name)
+            # print("Image feature extractor:", res_model_name)
             return res_model
         except:
             raise ("Invalid model name. Check the config file and pass one of: resnet18 or resnet50")
@@ -49,7 +49,7 @@ class ModelCLR(nn.Module):
     def _get_bert_basemodel(self, bert_model_name, freeze_layers):
         try:
             model = AutoModel.from_pretrained(bert_model_name)#, return_dict=True)
-            print("Image feature extractor:", bert_model_name)
+            # print("Image feature extractor:", bert_model_name)
         except:
             raise ("Invalid model name. Check the config file and pass a BERT model from transformers lybrary")
 
@@ -90,8 +90,8 @@ class ModelCLR(nn.Module):
         https://www.sbert.net
         """
         outputs = self.bert_model(**encoded_inputs)
-        print("text_encoder outputs")
-        print(outputs)
+        # print("text_encoder outputs")
+        # print(outputs)
 
         with torch.no_grad():
             sentence_embeddings = self.mean_pooling(outputs, encoded_inputs['attention_mask']).half()
@@ -102,32 +102,28 @@ class ModelCLR(nn.Module):
         return out_emb
 
     def forward(self, xis, encoded_inputs):
-        print("\nforward layer")
-        print("encoded_inputs:")
-        print(encoded_inputs)
+        # print("\nforward layer")
+        # print("encoded_inputs:")
+        # print(encoded_inputs)
 
         h, zis = self.image_encoder(xis)
 
         zls = self.text_encoder(encoded_inputs)
-        print("end image_encoder, text_encoder")
-        print("\n zis - v")
-        print(zis)
-        print("Type of every element:", zis.dtype)
-        print("Number of axes:", zis.ndim)
-        print("Shape of tensor:", zis.shape)
-        print("Elements along axis 0 of tensor:", zis.shape[0])
-        print("Elements along the last axis of tensor:", zis.shape[-1])
-
-        print("\n zls - u")
-        print(zls)
-        print("Type of every element:", zls.dtype)
-        print("Number of axes:", zls.ndim)
-        print("Shape of tensor:", zls.shape)
-        print("Elements along axis 0 of tensor:", zls.shape[0])
-        print("Elements along the last axis of tensor:", zls.shape[-1])
-
-        # print("Elements along axis 0 of tensor:", rank_4_tensor.shape[0])
-        # print("Elements along the last axis of tensor:", rank_4_tensor.shape[-1])
-        # print("Total number of elements (3*2*4*5): ", tf.size(rank_4_tensor).numpy())
+        # print("end image_encoder, text_encoder")
+        # print("\n zis - v")
+        # print(zis)
+        # print("Type of every element:", zis.dtype)
+        # print("Number of axes:", zis.ndim)
+        # print("Shape of tensor:", zis.shape)
+        # print("Elements along axis 0 of tensor:", zis.shape[0])
+        # print("Elements along the last axis of tensor:", zis.shape[-1])
+        #
+        # print("\n zls - u")
+        # print(zls)
+        # print("Type of every element:", zls.dtype)
+        # print("Number of axes:", zls.ndim)
+        # print("Shape of tensor:", zls.shape)
+        # print("Elements along axis 0 of tensor:", zls.shape[0])
+        # print("Elements along the last axis of tensor:", zls.shape[-1])
 
         return zis, zls
