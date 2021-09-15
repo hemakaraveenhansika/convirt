@@ -33,7 +33,8 @@ torch.manual_seed(0)
 def _save_config_file(model_checkpoints_folder):
     if not os.path.exists(model_checkpoints_folder):
         os.makedirs(model_checkpoints_folder)
-        shutil.copy('./config.yaml', os.path.join(model_checkpoints_folder, 'config.yaml'))
+        # shutil.copy('./config.yaml', os.path.join(model_checkpoints_folder, 'config.yaml'))
+        shutil.copy('./config.yaml', '/kaggle/working/config.yaml')
 
 # def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
 #     torch.save(state, filename)
@@ -139,8 +140,8 @@ class SimCLR(object):
                     # save the model weights
                     best_valid_loss = valid_loss
                     # torch.save(model.state_dict(), os.path.join(model_checkpoints_folder, 'model.pth'))
-                    torch.save(model.state_dict(), '/kaggle/working/model.pth.tar')
-                    print("save the model checkpoint in /kaggle/working/model.pth.tar")
+                    torch.save(model.state_dict(), '/kaggle/working/model.pth')
+                    print("save the model checkpoint in /kaggle/working/model.pth")
                 self.writer.add_scalar('validation_loss', valid_loss, global_step=valid_n_iter)
                 valid_n_iter += 1
 
