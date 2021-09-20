@@ -12,6 +12,8 @@ import sys
 from tqdm import tqdm
 from transformers import AdamW
 from transformers import AutoTokenizer
+from models.tokenization import BertTokenizer
+
 import logging
 logging.getLogger("transformers.tokenization_utils_base").setLevel(logging.ERROR)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -49,7 +51,8 @@ class SimCLR(object):
         self.dataset = dataset
         self.nt_xent_criterion = NTXentLoss(self.device, config['batch_size'], **config['loss'])
         self.truncation = config['truncation']
-        self.tokenizer = AutoTokenizer.from_pretrained(config['model']['bert_base_model'])#, do_lower_case=config['model_bert']['do_lower_case'])
+        # self.tokenizer = AutoTokenizer.from_pretrained(config['model']['bert_base_model'])#, do_lower_case=config['model_bert']['do_lower_case'])
+        self.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased", do_lower_case=True)#, do_lower_case=config['model_bert']['do_lower_case'])
 
     def _get_device(self):
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -99,11 +102,12 @@ class SimCLR(object):
 
                 optimizer.zero_grad()
                 # optimizer_bert.zero_grad()
-
-                xls = self.tokenizer(list(xls), 
-                                    return_tensors="pt", 
-                                    padding=True, 
-                                    truncation=self.truncation)
+                print("befor tokenizer")
+                print(xls)
+                # xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                xls = self.tokenizer(xls)
+                print("after tokenizer")
+                print(xls)
 
                 xis = xis.to(self.device)
                 xls = xls.to(self.device)
@@ -178,7 +182,8 @@ class SimCLR(object):
             print(f'Validation step')
             for xis, xls in tqdm(valid_loader):
 
-                xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                # xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                xls = self.tokenizer(xls)
 
                 xis = xis.to(self.device)
                 xls = xls.to(self.device)
