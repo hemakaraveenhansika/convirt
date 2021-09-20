@@ -104,8 +104,8 @@ class SimCLR(object):
                 # optimizer_bert.zero_grad()
                 print("\nbefor tokenizer")
                 print(xls)
-                # xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
-                xls = self.tokenizer(list(xls))
+                xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                # xls = self.tokenizer(list(xls))
                 print("\nafter tokenizer")
                 print(xls)
 
@@ -182,8 +182,8 @@ class SimCLR(object):
             print(f'Validation step')
             for xis, xls in tqdm(valid_loader):
 
-                # xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
-                xls = self.tokenizer(list(xls))
+                xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                # xls = self.tokenizer(list(xls))
 
                 xis = xis.to(self.device)
                 xls = xls.to(self.device)
