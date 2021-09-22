@@ -158,7 +158,7 @@ class SimCLR(object):
         self.test(model)
 
     def test(self, model):
-        print("Training has started...")
+        print("Testing has started...")
         with torch.no_grad():  # turn off gradients computation
             # Dataloaders
             test_loader = self.dataset.get_test_data_loaders()
@@ -167,19 +167,22 @@ class SimCLR(object):
             # model = ModelCLR(**self.config["model"]).to(self.device)
             # model = self._load_pre_trained_weights(model)
 
-            optimizer = torch.optim.Adam(model.parameters(),
-                                         eval(self.config['learning_rate']),
-                                         weight_decay=eval(self.config['weight_decay']))
+            #not - start
+            # optimizer = torch.optim.Adam(model.parameters(),
+            #                              eval(self.config['learning_rate']),
+            #                              weight_decay=eval(self.config['weight_decay']))
+            #
+            #
+            # if apex_support and self.config['fp16_precision']:
+            #     model, optimizer = amp.initialize(model, optimizer,
+            #                                       opt_level='O2',
+            #                                       keep_batchnorm_fp32=True)
+            # not - end
 
-
-            if apex_support and self.config['fp16_precision']:
-                model, optimizer = amp.initialize(model, optimizer,
-                                                  opt_level='O2',
-                                                  keep_batchnorm_fp32=True)
             print(f'Testing...')
 
             for xis in tqdm(test_loader):
-                optimizer.zero_grad()
+
                 xis = xis.to(self.device)
                 zis = model(xis, None)  # [N]
                 print("\n zis - v, Testing")
