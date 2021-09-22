@@ -157,27 +157,16 @@ class SimCLR(object):
         print("Training has finished...")
         self.test(model)
 
-    def test(self, model):
+    def test(self):
         print("Testing has started...")
         with torch.no_grad():  # turn off gradients computation
             # Dataloaders
             test_loader = self.dataset.get_test_data_loaders()
 
             # Model Resnet Initialize
-            # model = ModelCLR(**self.config["model"]).to(self.device)
+            model = ModelCLR(**self.config["model"]).to(self.device)
+            model.load_state_dict(torch.load('/kaggle/working/model.pth'))
             # model = self._load_pre_trained_weights(model)
-
-            #not - start
-            # optimizer = torch.optim.Adam(model.parameters(),
-            #                              eval(self.config['learning_rate']),
-            #                              weight_decay=eval(self.config['weight_decay']))
-            #
-            #
-            # if apex_support and self.config['fp16_precision']:
-            #     model, optimizer = amp.initialize(model, optimizer,
-            #                                       opt_level='O2',
-            #                                       keep_batchnorm_fp32=True)
-            # not - end
 
             print(f'Testing...')
 
