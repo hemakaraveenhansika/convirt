@@ -9,6 +9,7 @@ def main():
 
     simclr = SimCLR(dataset, config)
     simclr.train()
+    simclr.test()
 
 
 if __name__ == "__main__":

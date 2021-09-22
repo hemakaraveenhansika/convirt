@@ -19,7 +19,8 @@ class ClrDataset(Dataset):
                 img_path_col, 
                 text_col, 
                 text_from_files, 
-                text_root_dir, 
+                text_root_dir,
+                mode,
                 transform=None):
         """
         Args:
@@ -36,12 +37,14 @@ class ClrDataset(Dataset):
         self.img_path_col = int(img_path_col)
         self.text_col = int(text_col)
         self.text_from_files = text_from_files
+        self.mode = mode
         self.text_root_dir = text_root_dir
 
     def __len__(self):
         return len(self.clr_frame)
 
     def __getitem__(self, idx):
+
         if torch.is_tensor(idx):
             idx = idx.tolist()
 
@@ -52,33 +55,37 @@ class ClrDataset(Dataset):
             image = image.convert('RGB')
         
 
-        #chooosig a phrase
-        if not self.text_from_files:
-            # print('image: ', img_name)
-            text = self.clr_frame.iloc[idx, self.text_col]
-            text = text.replace("\n", "")
-            ls_text = text.split(".")
-            if '' in ls_text:
-                ls_text.remove('')
-            phrase = random.choice(ls_text)
+        if self.mode == 'train':
+            #chooosig a phrase
+            if not self.text_from_files:
+                # print('image: ', img_name)
+                text = self.clr_frame.iloc[idx, self.text_col]
+                text = text.replace("\n", "")
+                ls_text = text.split(".")
+                if '' in ls_text:
+                    ls_text.remove('')
+                phrase = random.choice(ls_text)
 
-        else:
-            text_path = os.path.join(self.text_root_dir, 
-                                     self.clr_frame.iloc[idx, self.text_col]
-                                    )
-            with open(text_path) as f:
-                content = f.readlines()
-            content = content.replace("\n", "")
-            ls_text = content.split(".")
-            if '' in ls_text:
-                ls_text.remove('')
-            phrase = random.choice(ls_text)
+            else:
+                text_path = os.path.join(self.text_root_dir,
+                                         self.clr_frame.iloc[idx, self.text_col]
+                                        )
+                with open(text_path) as f:
+                    content = f.readlines()
+                content = content.replace("\n", "")
+                ls_text = content.split(".")
+                if '' in ls_text:
+                    ls_text.remove('')
+                phrase = random.choice(ls_text)
 
-
-        sample = {'image': image, 'phrase': phrase}
+            sample = {'image': image, 'phrase': phrase}
+        else :
+            sample = {'image': image}
 
         if self.transform:
             sample = self.transform(sample)
+
         # print('image: ', img_name, 'phrase: ', phrase)
         # print('get sample')
+
         return sample

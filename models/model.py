@@ -108,22 +108,24 @@ class ModelCLR(nn.Module):
 
         h, zis = self.image_encoder(xis)
 
-        zls = self.text_encoder(encoded_inputs)
-        # print("end image_encoder, text_encoder")
-        # print("\n zis - v")
-        # print(zis)
-        # print("Type of every element:", zis.dtype)
-        # print("Number of axes:", zis.ndim)
-        # print("Shape of tensor:", zis.shape)
-        # print("Elements along axis 0 of tensor:", zis.shape[0])
-        # print("Elements along the last axis of tensor:", zis.shape[-1])
-        #
-        # print("\n zls - u")
-        # print(zls)
-        # print("Type of every element:", zls.dtype)
-        # print("Number of axes:", zls.ndim)
-        # print("Shape of tensor:", zls.shape)
-        # print("Elements along axis 0 of tensor:", zls.shape[0])
-        # print("Elements along the last axis of tensor:", zls.shape[-1])
-
-        return zis, zls
+        if not encoded_inputs is None:
+            zls = self.text_encoder(encoded_inputs)
+            # print("end image_encoder, text_encoder")
+            # print("\n zis - v")
+            # print(zis)
+            # print("Type of every element:", zis.dtype)
+            # print("Number of axes:", zis.ndim)
+            # print("Shape of tensor:", zis.shape)
+            # print("Elements along axis 0 of tensor:", zis.shape[0])
+            # print("Elements along the last axis of tensor:", zis.shape[-1])
+            #
+            # print("\n zls - u")
+            # print(zls)
+            # print("Type of every element:", zls.dtype)
+            # print("Number of axes:", zls.ndim)
+            # print("Shape of tensor:", zls.shape)
+            # print("Elements along axis 0 of tensor:", zls.shape[0])
+            # print("Elements along the last axis of tensor:", zls.shape[-1])
+            return zis, zls
+        else:
+            return zis

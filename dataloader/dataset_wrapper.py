@@ -36,7 +36,7 @@ class DataSetWrapper(object):
         self.text_root_dir = text_root_dir
 
         
-    def get_data_loaders(self):
+    def get_train_data_loaders(self):
         data_augment = self._get_simclr_pipeline_transform()
         train_dataset = ClrDataset(csv_file=self.csv_file,
                                     img_root_dir=self.img_root_dir,
@@ -44,7 +44,8 @@ class DataSetWrapper(object):
                                     img_path_col = self.img_path_col, 
                                     text_col = self.text_col, 
                                     text_from_files = self.text_from_files, 
-                                    text_root_dir = self.text_root_dir, 
+                                    text_root_dir = self.text_root_dir,
+                                    mode = 'train',
                                     transform=SimCLRDataTransform(data_augment)
                                     )
         print("num_train len : ", len(train_dataset))
@@ -59,6 +60,29 @@ class DataSetWrapper(object):
 
         train_loader, valid_loader = self.get_train_validation_data_loaders(train_dataset)
         return train_loader, valid_loader
+
+    def get_test_data_loaders(self):
+        data_augment = self._get_simclr_pipeline_transform()
+        test_dataset = ClrDataset(csv_file=self.csv_file,
+                                    img_root_dir=self.img_root_dir,
+                                    input_shape = self.input_shape,
+                                    img_path_col = self.img_path_col,
+                                    text_col = self.text_col,
+                                    text_from_files = self.text_from_files,
+                                    text_root_dir = self.text_root_dir,
+                                    mode='test',
+                                    transform=SimCLRDataTransform(data_augment)
+                                )
+
+        print("num_test len : ", len(test_dataset))
+        # print("train_dataset_data1")
+        # print(train_dataset[0]['phrase'])
+        # print("train_dataset_data2")
+
+        test_loader = DataLoader(test_dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
+        print("load test_loader....")
+
+        return test_loader
 
     def _get_simclr_pipeline_transform(self):
         # get a set of data augmentation transformations as described in the SimCLR paper.

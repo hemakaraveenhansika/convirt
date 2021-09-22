@@ -61,7 +61,7 @@ class SimCLR(object):
 
     def train(self):
         #Dataloaders
-        train_loader, valid_loader = self.dataset.get_data_loaders()
+        train_loader, valid_loader = self.dataset.get_train_data_loaders()
 
         #Model Resnet Initialize
         model = ModelCLR(**self.config["model"]).to(self.device)
@@ -156,6 +156,37 @@ class SimCLR(object):
 
         print("Training has finished...")
 
+    def test(self, model):
+        print("Training has started...")
+        with torch.no_grad():  # turn off gradients computation
+            # Dataloaders
+            test_loader = self.dataset.get_test_data_loaders()
+
+            # Model Resnet Initialize
+            # model = ModelCLR(**self.config["model"]).to(self.device)
+            # model = self._load_pre_trained_weights(model)
+
+            optimizer = torch.optim.Adam(model.parameters(),
+                                         eval(self.config['learning_rate']),
+                                         weight_decay=eval(self.config['weight_decay']))
+
+
+            if apex_support and self.config['fp16_precision']:
+                model, optimizer = amp.initialize(model, optimizer,
+                                                  opt_level='O2',
+                                                  keep_batchnorm_fp32=True)
+            print(f'Testing...')
+
+            for xis in tqdm(test_loader):
+                optimizer.zero_grad()
+                xis = xis.to(self.device)
+                zis = model(xis, None)  # [N]
+                print("\n zis - v, Testing")
+                print(zis)
+
+        print("Testing has finished...")
+
+
     def _load_pre_trained_weights(self, model):
         try:
             print('search model.pth')
@@ -174,7 +205,7 @@ class SimCLR(object):
     def _validate(self, model, valid_loader, n_iter):
 
         # validation steps
-        with torch.no_grad():
+        with torch.no_grad():   #turn off gradients computation
             model.eval()
             # model_bert.eval()
             valid_loss = 0.0
