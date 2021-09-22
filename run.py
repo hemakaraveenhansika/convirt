@@ -10,6 +10,7 @@ def main():
     simclr = SimCLR(dataset, config)
 
     simclr.train()
+
     simclr.test()
 
 
