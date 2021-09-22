@@ -46,7 +46,7 @@ class DataSetWrapper(object):
                                     text_from_files = self.text_from_files, 
                                     text_root_dir = self.text_root_dir,
                                     mode = 'train',
-                                    transform=SimCLRDataTransform(data_augment)
+                                    transform=SimCLRTrainDataTransform(data_augment)
                                     )
         print("num_train len : ", len(train_dataset))
         # print("train_dataset_data1")
@@ -54,9 +54,6 @@ class DataSetWrapper(object):
         # print("train_dataset_data2")
         # for ais, als in train_dataset:
         #     print(ais)
-
-        # train_dataset = datasets.STL10('./data', split='train+unlabeled', download=True,
-        #                                transform=SimCLRDataTransform(data_augment))
 
         train_loader, valid_loader = self.get_train_validation_data_loaders(train_dataset)
         return train_loader, valid_loader
@@ -71,7 +68,7 @@ class DataSetWrapper(object):
                                     text_from_files = self.text_from_files,
                                     text_root_dir = self.text_root_dir,
                                     mode='test',
-                                    transform=SimCLRDataTransform(data_augment)
+                                    transform=SimCLRTestDataTransform(data_augment)
                                 )
 
         print("num_test len : ", len(test_dataset))
@@ -125,7 +122,7 @@ class DataSetWrapper(object):
         # print(len(train_loader))
         return train_loader, valid_loader
 
-class SimCLRDataTransform(object):
+class SimCLRTrainDataTransform(object):
     def __init__(self, transform_image):
         self.transform_image = transform_image
 
@@ -134,3 +131,12 @@ class SimCLRDataTransform(object):
         xl = sample['phrase']
 
         return xi, xl
+
+class SimCLRTestDataTransform(object):
+    def __init__(self, transform_image):
+        self.transform_image = transform_image
+
+    def __call__(self, sample):
+        xi = self.transform_image(sample['image'])
+
+        return xi
