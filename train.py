@@ -158,16 +158,15 @@ class SimCLR(object):
         # self.test()
 
     def test(self):
-        print("Testing has started...")
+        print("\n\nTesting has started...")
         with torch.no_grad():  # turn off gradients computation
             # Dataloaders
             test_loader = self.dataset.get_test_data_loaders()
 
             # Model Resnet Initialize
             model = ModelCLR(**self.config["model"]).to(self.device)
-            model.load_state_dict(torch.load('/kaggle/working/model.pth'))
-            # model = self._load_pre_trained_weights(model)
-
+            model = self._load_pre_trained_weights_test(model)
+            print("Testing: Loaded pre-trained model with success.")
             print(f'Testing...')
 
             for xis in tqdm(test_loader):
@@ -192,6 +191,17 @@ class SimCLR(object):
             print("Loaded pre-trained model with success.")
         except FileNotFoundError:
             print("Pre-trained weights not found. Training from scratch.")
+
+        return model
+
+    def _load_pre_trained_weights_test(self, model):
+        try:
+            save_path = '/kaggle/working/model.pth'
+            state_dict = torch.load(save_path)
+            model.load_state_dict(state_dict)
+
+        except FileNotFoundError:
+            print("Testing: Pre-trained weights not found.")
 
         return model
 
