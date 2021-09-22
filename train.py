@@ -155,7 +155,7 @@ class SimCLR(object):
             self.writer.add_scalar('cosine_lr_decay', scheduler.get_lr()[0], global_step=n_iter)
 
         print("Training has finished...")
-        self.test(model)
+        self.test()
 
     def test(self):
         print("Testing has started...")
