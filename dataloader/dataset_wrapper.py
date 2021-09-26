@@ -76,7 +76,7 @@ class DataSetWrapper(object):
         # print(train_dataset[0]['phrase'])
         # print("train_dataset_data2")
 
-        test_loader = DataLoader(test_dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
+        test_loader = DataLoader(test_dataset, batch_size=1, num_workers=self.num_workers, shuffle=False)
         print("load test_loader....")
 
         return test_loader

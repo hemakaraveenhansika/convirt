@@ -183,33 +183,33 @@ class SimCLR(object):
         with torch.no_grad():  # turn off gradients computation
             # Dataloaders
             test_loader = self.dataset.get_test_data_loaders()
-            test_loader_iter = iter(test_loader)
-            processed_img, processed_id = next(test_loader_iter)
+            # test_loader_iter = iter(test_loader)
+            # processed_img, processed_id = next(test_loader_iter)
 
             # Model Resnet Initialize
             # model = ModelCLR(**self.config["model"]).to(self.device)
             # model = self._load_pre_trained_weights_test(model)
             # print("Testing: Loaded pre-trained model with success.")
-            print(f'Testing...', processed_id[0])
-            print(processed_img[0])
-
-            processed_img = processed_img.to(self.device)
-            processed_zis = model(processed_img[0], None)  # [N]
-
-            processed_features = processed_zis.unsqueeze(1)
-            final_output = decoder.predict(processed_features, max_len=20)
-            print("\n zis -> final_output, Testing")
-            print(final_output)
-
-            # for xis in tqdm(test_loader):
+            print(f'Testing...', processed_id)
+            # print(processed_img)
             #
-            #     xis = xis.to(self.device)
-            #     zis = model(xis, None)  # [N]
+            # processed_img = processed_img.to(self.device)
+            # processed_zis = model(processed_img, None)  # [N]
             #
-            #     features = zis.unsqueeze(1)
-            #     final_output = decoder.predict(features, max_len=20)
-            #     print("\n zis -> final_output, Testing")
-            #     print(final_output)
+            # processed_features = processed_zis.unsqueeze(1)
+            # final_output = decoder.predict(processed_features, max_len=20)
+            # print("\n zis -> final_output, Testing")
+            # print(final_output)
+
+            for xis, processed_id in tqdm(test_loader):
+
+                xis = xis.to(self.device)
+                zis = model(xis, None)  # [N]
+
+                features = zis.unsqueeze(1)
+                final_output = decoder.predict(features, max_len=20)
+                print("\n zis -> final_output, Testing", processed_id)
+                print(final_output)
 
         print("Testing has finished...")
         # self.test(model, decoder)
