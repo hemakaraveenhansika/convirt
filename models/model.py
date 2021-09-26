@@ -146,13 +146,19 @@ class DecoderRNN(nn.Module):
                             batch_first=True
                             )
         self.fc = nn.Linear(self.hidden_size, self.vocab_size)
+        self.device = self._get_device()
+
+    def _get_device(self):
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        print("Running on:", device)
+        return device
 
     def init_hidden(self, batch_size):
-        return (torch.zeros(self.num_layers, batch_size, self.hidden_size).to(device),
-                torch.zeros(self.num_layers, batch_size, self.hidden_size).to(device))
+        return (torch.zeros(self.num_layers, batch_size, self.hidden_size).to(self.device),
+                torch.zeros(self.num_layers, batch_size, self.hidden_size).to(self.device))
 
     def forward(self, features, captions):
-        captions = captions[:, :-1]
+        # captions = captions[:, :-1]
         self.batch_size = features.shape[0]
         self.hidden = self.init_hidden(self.batch_size)
         embeds = self.word_embedding(captions)
@@ -172,7 +178,7 @@ class DecoderRNN(nn.Module):
             outputs = outputs.squeeze(1)
             _, max_idx = torch.max(outputs, dim=1)
             final_output.append(max_idx.cpu().numpy()[0].item())
-            if (max_idx == 1 or len(final_ouput) >= 20):
+            if (max_idx == 1 or len(final_output) >= 20):
                 break
 
             inputs = self.word_embedding(max_idx)
