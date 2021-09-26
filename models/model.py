@@ -199,6 +199,10 @@ class DecoderRNN(nn.Module):
         batch_size = inputs.shape[0]
         hidden = self.init_hidden(batch_size)
 
+        print("inputs")
+        print(inputs)
+        print(inputs.shape, inputs.ndim)
+
         while True:
             lstm_out, hidden = self.lstm(inputs, hidden)
             outputs = self.fc(lstm_out)
