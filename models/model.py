@@ -205,9 +205,12 @@ class DecoderRNN(nn.Module):
 
             print("\noutputs before")
             print(outputs)
+            print(outputs.shape, outputs.ndim)
+
             outputs = outputs.squeeze(1)
             print("\noutputs after")
             print(outputs)
+            print(outputs.shape, outputs.ndim)
 
             _, max_idx = torch.max(outputs, dim=1)
             final_output.append(max_idx.cpu().numpy()[0].item())
