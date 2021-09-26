@@ -2,6 +2,7 @@ import torch
 
 # from models.resnet_clr import ResNetSimCLR
 from models.model import ModelCLR
+from models.model import DecoderRNN
 from torch.utils.tensorboard import SummaryWriter
 import torch.nn.functional as F
 from loss.nt_xent import NTXentLoss
@@ -94,6 +95,19 @@ class SimCLR(object):
         valid_n_iter = 0
         best_valid_loss = np.inf
 
+        ##decoder
+        print('\nload decoder...')
+        embed_size = 256
+        hidden_size = 100
+        num_layers = 1
+        num_epochs = 4
+        print_every = 150
+        save_every = 1
+        vocab_size = self.tokenizer.vocab_size()
+        print(vocab_size)
+        decoder = DecoderRNN(embed_size, hidden_size, vocab_size, num_layers).to(self.device)
+        decoder.zero_grad()
+
         print(f'Training...')
 
         for epoch_counter in range(self.config['epochs']):
@@ -114,6 +128,11 @@ class SimCLR(object):
 
                 # get the representations and the projections
                 zis, zls = model(xis, xls)  # [N,C]
+
+                ##decoder
+                output = decoder(zis, xls)
+                print("lstm output")
+                print(output)
 
                 # get the representations and the projections
                 # zls = model_bert(xls)  # [N,C]
