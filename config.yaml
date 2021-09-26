@@ -1,5 +1,5 @@
 batch_size: 25
-epochs: 6
+epochs: 10
 eval_every_n_epochs: 2
 fine_tune_from: convirt_epoch_10
 log_every_n_steps: 2
