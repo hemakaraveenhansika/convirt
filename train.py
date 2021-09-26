@@ -121,18 +121,20 @@ class SimCLR(object):
                 # print("\nbefor tokenizer")
                 # print(xls)
                 xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                xls_tf = self.tokenizer(list(xls), return_tensors="tf", padding=True, truncation=self.truncation)
                 # xls = self.tokenizer(xls, return_tensors="pt")
                 # print("\nafter tokenizer")
                 # print(xls)
 
                 xis = xis.to(self.device)
                 xls = xls.to(self.device)
+                xls_tf = xls_tf.to(self.device)
 
                 # get the representations and the projections
                 zis, zls = model(xis, xls)  # [N,C]
 
                 ##decoder
-                output = decoder(zis, xls)
+                output = decoder(zis, xls_tf)
                 print("lstm output")
                 print(output)
 
