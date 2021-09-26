@@ -161,13 +161,14 @@ class DecoderRNN(nn.Module):
         # captions = captions[:, :-1]
         print("\ncaptions tensor")
         print(captions)
-        captions = captions['input_ids'].numpy()
+        captions = (captions['input_ids'].numpy())[0]
         print("\ncaptions numpy")
         print(captions)
         captions = torch.Tensor(captions).long()
         print("\ncaptions")
         # captions = torch.tensor(captions, dtype=torch.long)
         print(captions)
+        captions = captions.to(self.device)
 
         self.batch_size = features.shape[0]
         self.hidden = self.init_hidden(self.batch_size)
