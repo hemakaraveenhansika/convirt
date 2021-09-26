@@ -128,7 +128,6 @@ class SimCLR(object):
 
                 xis = xis.to(self.device)
                 xls = xls.to(self.device)
-                xls_tf = xls_tf.to(self.device)
 
                 # get the representations and the projections
                 zis, zls = model(xis, xls)  # [N,C]
