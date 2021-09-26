@@ -173,6 +173,9 @@ class DecoderRNN(nn.Module):
         self.batch_size = features.shape[0]
         self.hidden = self.init_hidden(self.batch_size)
         embeds = self.word_embedding(captions)
+
+        print("shapes", features.ndim, embeds.ndim)
+
         inputs = torch.cat((features.unsqueeze(dim=1), embeds), dim=1)
         lstm_out, self.hidden = self.lstm(inputs, self.hidden)
         outputs = self.fc(lstm_out)
