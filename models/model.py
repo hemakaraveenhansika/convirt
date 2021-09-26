@@ -205,7 +205,9 @@ class DecoderRNN(nn.Module):
             outputs = outputs.squeeze(1)
             _, max_idx = torch.max(outputs, dim=1)
             final_output.append(max_idx.cpu().numpy()[0].item())
-            if (max_idx == 1 or len(final_output) >= 20):
+            print(max_idx)
+            print(len(final_output))
+            if ((max_idx == 1) or (len(final_output) >= 20)):
                 break
 
             inputs = self.word_embedding(max_idx)
