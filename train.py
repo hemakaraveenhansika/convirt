@@ -124,8 +124,8 @@ class SimCLR(object):
                 xls_1 = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
                 xls_2 = self.tokenizer(list(xls), return_tensors="tf", padding=True, truncation=self.truncation)
                 # xls = self.tokenizer(xls, return_tensors="pt")
-                print("\nafter tokenizer")
-                print(xls_2)
+                # print("\nafter tokenizer")
+                # print(xls_2)
 
                 xis = xis.to(self.device)
                 xls_1 = xls_1.to(self.device)
@@ -136,7 +136,7 @@ class SimCLR(object):
                 ##decoder
                 output = decoder(zis, xls_2)
                 print("lstm output")
-                print(output)
+                # print(output)
 
                 # get the representations and the projections
                 # zls = model_bert(xls)  # [N,C]
