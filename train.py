@@ -119,7 +119,7 @@ class SimCLR(object):
                 optimizer.zero_grad()
                 # optimizer_bert.zero_grad()
                 # print("\nbefor tokenizer")
-                # print(xls)
+                print(xls)
                 xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
                 xls_tf = self.tokenizer(list(xls), return_tensors="tf", padding=True, truncation=self.truncation)
                 # xls = self.tokenizer(xls, return_tensors="pt")
