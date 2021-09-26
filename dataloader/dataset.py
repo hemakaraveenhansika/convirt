@@ -80,7 +80,7 @@ class ClrDataset(Dataset):
 
             sample = {'image': image, 'phrase': phrase}
         else :
-            sample = {'image': image}
+            sample = {'image': image, 'img_id': img_name}
 
         if self.transform:
             sample = self.transform(sample)

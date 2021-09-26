@@ -184,13 +184,13 @@ class SimCLR(object):
             # Dataloaders
             test_loader = self.dataset.get_test_data_loaders()
             test_loader_iter = iter(test_loader)
-            processed_img = next(test_loader_iter)
+            processed_img, processed_id = next(test_loader_iter)
 
             # Model Resnet Initialize
             # model = ModelCLR(**self.config["model"]).to(self.device)
             # model = self._load_pre_trained_weights_test(model)
             # print("Testing: Loaded pre-trained model with success.")
-            print(f'Testing...')
+            print(f'Testing...', processed_id)
 
             processed_img = processed_img.to(self.device)
             processed_zis = model(processed_img, None)  # [N]
