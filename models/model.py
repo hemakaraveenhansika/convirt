@@ -177,6 +177,8 @@ class DecoderRNN(nn.Module):
         fea2 = features.unsqueeze(dim=1)
 
         print("shapes", features.shape, fea2.shape, embeds.shape)
+        print("ndim", features.ndim, fea2.ndim, embeds.ndim)
+
         print("\nfeatures")
         print(features)
         print("\nembeds")
