@@ -165,8 +165,8 @@ class DecoderRNN(nn.Module):
         # print("\ncaptions numpy")
         # print(captions)
         captions = torch.Tensor(captions).long()
-        print("\ncaptions")
-        print(captions)
+        # print("\ncaptions")
+        # print(captions)
 
         captions = captions.to(self.device)
 
@@ -176,17 +176,17 @@ class DecoderRNN(nn.Module):
 
         features_squ = features.unsqueeze(dim=1)
 
-        print("shapes", features.shape, features_squ.shape, embeds.shape)
-        print("ndim", features.ndim, features_squ.ndim, embeds.ndim)
+        # print("shapes", features.shape, features_squ.shape, embeds.shape)
+        # print("ndim", features.ndim, features_squ.ndim, embeds.ndim)
 
-        print("\nfeatures")
-        print(features)
-
-        print("\nfeatures_squ")
-        print(features_squ)
-
-        print("\nembeds")
-        print(embeds)
+        # print("\nfeatures")
+        # print(features)
+        #
+        # print("\nfeatures_squ")
+        # print(features_squ)
+        #
+        # print("\nembeds")
+        # print(embeds)
 
         # inputs = torch.cat((features.unsqueeze(dim=1), embeds), dim=1)
         inputs = torch.cat((features_squ, embeds), dim=1)
@@ -194,7 +194,7 @@ class DecoderRNN(nn.Module):
         outputs = self.fc(lstm_out)
         return outputs
 
-    def Predict(self, inputs, max_len=20):
+    def predict(self, inputs, max_len=20):
         final_output = []
         batch_size = inputs.shape[0]
         hidden = self.init_hidden(batch_size)
