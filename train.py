@@ -178,7 +178,30 @@ class SimCLR(object):
             self.writer.add_scalar('cosine_lr_decay', scheduler.get_lr()[0], global_step=n_iter)
 
         print("Training has finished...")
-        self.test(model, decoder)
+
+        print("\n\nTesting has started...")
+        with torch.no_grad():  # turn off gradients computation
+            # Dataloaders
+            test_loader = self.dataset.get_test_data_loaders()
+
+            # Model Resnet Initialize
+            # model = ModelCLR(**self.config["model"]).to(self.device)
+            # model = self._load_pre_trained_weights_test(model)
+            # print("Testing: Loaded pre-trained model with success.")
+            print(f'Testing...')
+
+            for xis in tqdm(test_loader):
+
+                xis = xis.to(self.device)
+                zis = model(xis, None)  # [N]
+
+                features = zis.unsqueeze(1)
+                final_output = decoder.predict(features, max_len=20)
+                print("\n zis -> final_output, Testing")
+                print(final_output)
+
+        print("Testing has finished...")
+        # self.test(model, decoder)
 
     # def test(self):
     def test(self, model, decoder):
