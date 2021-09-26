@@ -138,6 +138,6 @@ class SimCLRTestDataTransform(object):
 
     def __call__(self, sample):
         xi = self.transform_image(sample['image'])
-        id = self.transform_image(sample['img_id'])
+        id = sample['img_id']
 
         return xi, id
