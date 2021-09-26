@@ -12,7 +12,9 @@ import shutil
 import sys
 from tqdm import tqdm
 from transformers import AdamW
-from transformers import AutoTokenizer
+# from transformers import AutoTokenizer
+from transformers import BertTokenizer
+
 from models.tokenization import BertTokenizer
 
 import logging
@@ -52,8 +54,8 @@ class SimCLR(object):
         self.dataset = dataset
         self.nt_xent_criterion = NTXentLoss(self.device, config['batch_size'], **config['loss'])
         self.truncation = config['truncation']
-        self.tokenizer = AutoTokenizer.from_pretrained(config['model']['bert_base_model'])#, do_lower_case=config['model_bert']['do_lower_case'])
-        # self.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased", do_lower_case=True)#, do_lower_case=config['model_bert']['do_lower_case'])
+        # self.tokenizer = AutoTokenizer.from_pretrained(config['model']['bert_base_model'])#, do_lower_case=config['model_bert']['do_lower_case'])
+        self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased", do_lower_case=True)#, do_lower_case=config['model_bert']['do_lower_case'])
 
     def _get_device(self):
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
