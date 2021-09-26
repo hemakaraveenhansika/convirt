@@ -174,7 +174,7 @@ class DecoderRNN(nn.Module):
         self.hidden = self.init_hidden(self.batch_size)
         embeds = self.word_embedding(captions)
 
-        print("shapes", features.ndim, embeds.ndim)
+        print("shapes", features.shape, embeds.shape)
         print("\nfeatures")
         print(features)
         print("\nembeds")
