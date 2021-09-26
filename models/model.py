@@ -159,11 +159,16 @@ class DecoderRNN(nn.Module):
 
     def forward(self, features, captions):
         # captions = captions[:, :-1]
-        captions = captions['input_ids']
-
-        print("captions tensor")
+        print("\ncaptions tensor")
+        print(captions)
+        captions = captions['input_ids'].numpy()
+        print("\ncaptions numpy")
+        print(captions)
+        captions = torch.Tensor(captions).long()
+        print("\ncaptions")
         # captions = torch.tensor(captions, dtype=torch.long)
         print(captions)
+
         self.batch_size = features.shape[0]
         self.hidden = self.init_hidden(self.batch_size)
         embeds = self.word_embedding(captions)
