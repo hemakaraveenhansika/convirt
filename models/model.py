@@ -159,31 +159,32 @@ class DecoderRNN(nn.Module):
 
     def forward(self, features, captions):
         # captions = captions[:, :-1]
-        print("\ncaptions tensor")
-        print(captions)
-        captions = (captions['input_ids'].numpy())
-        print("\ncaptions numpy")
-        print(captions)
-        captions = torch.Tensor(captions).long()
-        print("\ncaptions")
-        print(captions)
 
-        captions = captions.to(self.device)
+        # print("\ncaptions tensor")
+        # print(captions)
+        # captions = (captions['input_ids'].numpy())
+        # print("\ncaptions numpy")
+        # print(captions)
+        # captions = torch.Tensor(captions).long()
+        # print("\ncaptions")
+        # print(captions)
+        # captions = captions.to(self.device)
 
         self.batch_size = features.shape[0]
         self.hidden = self.init_hidden(self.batch_size)
-        embeds = self.word_embedding(captions)
 
-        print("shapes", features.shape, embeds.shape)
-        print("ndim", features.ndim, embeds.ndim)
-
-        print("\nfeatures")
-        print(features)
-        print("\nembeds")
-        print(embeds)
+        # embeds = self.word_embedding(captions)
+        # print("shapes", features.shape, embeds.shape)
+        # print("ndim", features.ndim, embeds.ndim)
+        #
+        # print("\nfeatures")
+        # print(features)
+        # print("\nembeds")
+        # print(embeds)
 
         # inputs = torch.cat((features.unsqueeze(dim=1), embeds), dim=1)
-        inputs = torch.cat((features, embeds), dim=1)
+        # inputs = torch.cat((features, embeds), dim=1)
+        inputs = torch.cat((features, captions), dim=1)
         lstm_out, self.hidden = self.lstm(inputs, self.hidden)
         outputs = self.fc(lstm_out)
         return outputs

@@ -3,6 +3,7 @@ import torch
 # from models.resnet_clr import ResNetSimCLR
 from models.model import ModelCLR
 from models.model import DecoderRNN
+
 from torch.utils.tensorboard import SummaryWriter
 import torch.nn.functional as F
 from loss.nt_xent import NTXentLoss
@@ -15,7 +16,7 @@ from transformers import AdamW
 from transformers import AutoTokenizer
 # from transformers import BertTokenizer
 
-from models.tokenization import BertTokenizer
+# from models.tokenization import BertTokenizer
 
 import logging
 logging.getLogger("transformers.tokenization_utils_base").setLevel(logging.ERROR)
@@ -55,7 +56,7 @@ class SimCLR(object):
         self.nt_xent_criterion = NTXentLoss(self.device, config['batch_size'], **config['loss'])
         self.truncation = config['truncation']
         self.tokenizer = AutoTokenizer.from_pretrained(config['model']['bert_base_model'])#, do_lower_case=config['model_bert']['do_lower_case'])
-        # self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased", do_lower_case=True)#, do_lower_case=config['model_bert']['do_lower_case'])
+        # self.tokenizer = BertTokenizer
 
     def _get_device(self):
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -120,11 +121,11 @@ class SimCLR(object):
                 # optimizer_bert.zero_grad()
                 # print("\nbefor tokenizer")
                 print(xls)
-                xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
-                xls_tf = self.tokenizer(list(xls), return_tensors="tf", padding=True, truncation=self.truncation)
-                # xls = self.tokenizer(xls, return_tensors="pt")
-                # print("\nafter tokenizer")
-                # print(xls)
+                # xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                # xls_tf = self.tokenizer(list(xls), return_tensors="tf", padding=True, truncation=self.truncation)
+                xls = self.tokenizer(xls, return_tensors="pt")
+                print("\nafter tokenizer")
+                print(xls)
 
                 xis = xis.to(self.device)
                 xls = xls.to(self.device)
@@ -133,7 +134,7 @@ class SimCLR(object):
                 zis, zls = model(xis, xls)  # [N,C]
 
                 ##decoder
-                output = decoder(zis, xls_tf)
+                output = decoder(zis, zls)
                 print("lstm output")
                 print(output)
 
