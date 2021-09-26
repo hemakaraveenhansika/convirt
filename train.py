@@ -12,8 +12,8 @@ import shutil
 import sys
 from tqdm import tqdm
 from transformers import AdamW
-# from transformers import AutoTokenizer
-from transformers import BertTokenizer
+from transformers import AutoTokenizer
+# from transformers import BertTokenizer
 
 from models.tokenization import BertTokenizer
 
@@ -54,8 +54,8 @@ class SimCLR(object):
         self.dataset = dataset
         self.nt_xent_criterion = NTXentLoss(self.device, config['batch_size'], **config['loss'])
         self.truncation = config['truncation']
-        # self.tokenizer = AutoTokenizer.from_pretrained(config['model']['bert_base_model'])#, do_lower_case=config['model_bert']['do_lower_case'])
-        self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased", do_lower_case=True)#, do_lower_case=config['model_bert']['do_lower_case'])
+        self.tokenizer = AutoTokenizer.from_pretrained(config['model']['bert_base_model'])#, do_lower_case=config['model_bert']['do_lower_case'])
+        # self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased", do_lower_case=True)#, do_lower_case=config['model_bert']['do_lower_case'])
 
     def _get_device(self):
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -105,7 +105,7 @@ class SimCLR(object):
         num_epochs = 4
         print_every = 150
         save_every = 1
-        vocab_size = self.tokenizer.vocab_size()
+        vocab_size = len(self.tokenizer.vocab)
         print(vocab_size)
         decoder = DecoderRNN(embed_size, hidden_size, vocab_size, num_layers).to(self.device)
         decoder.zero_grad()
@@ -120,8 +120,8 @@ class SimCLR(object):
                 # optimizer_bert.zero_grad()
                 # print("\nbefor tokenizer")
                 # print(xls)
-                # xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
-                xls = self.tokenizer(xls, return_tensors="pt")
+                xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                # xls = self.tokenizer(xls, return_tensors="pt")
                 # print("\nafter tokenizer")
                 # print(xls)
 
@@ -237,8 +237,8 @@ class SimCLR(object):
             print(f'Validation step')
             for xis, xls in tqdm(valid_loader):
 
-                # xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
-                xls = self.tokenizer(xls, return_tensors="pt")
+                xls = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
+                # xls = self.tokenizer(xls, return_tensors="pt")
 
                 xis = xis.to(self.device)
                 xls = xls.to(self.device)
