@@ -99,7 +99,7 @@ class SimCLR(object):
 
         ##decoder
         print('\nload decoder...')
-        embed_size = 256
+        embed_size = 512
         hidden_size = 100
         num_layers = 1
         num_epochs = 4
