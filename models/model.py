@@ -202,11 +202,22 @@ class DecoderRNN(nn.Module):
         while True:
             lstm_out, hidden = self.lstm(inputs, hidden)
             outputs = self.fc(lstm_out)
+
+            print("\noutputs before")
+            print(outputs)
             outputs = outputs.squeeze(1)
+            print("\noutputs after")
+            print(outputs)
+
             _, max_idx = torch.max(outputs, dim=1)
             final_output.append(max_idx.cpu().numpy()[0].item())
+
+            print("\nmax_idx")
             print(max_idx)
-            print(len(final_output))
+
+            print("\nfinal_output")
+            print(final_output)
+
             if ((max_idx == 1) or (len(final_output) >= 20)):
                 break
 
