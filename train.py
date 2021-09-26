@@ -190,10 +190,11 @@ class SimCLR(object):
             # model = ModelCLR(**self.config["model"]).to(self.device)
             # model = self._load_pre_trained_weights_test(model)
             # print("Testing: Loaded pre-trained model with success.")
-            print(f'Testing...', processed_id)
+            print(f'Testing...', processed_id[0])
+            print(processed_img[0])
 
             processed_img = processed_img.to(self.device)
-            processed_zis = model(processed_img, None)  # [N]
+            processed_zis = model(processed_img[0], None)  # [N]
 
             processed_features = processed_zis.unsqueeze(1)
             final_output = decoder.predict(processed_features, max_len=20)
