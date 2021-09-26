@@ -122,7 +122,7 @@ class SimCLR(object):
                 # print("\nbefor tokenizer")
                 # print(xls)
                 xls_1 = self.tokenizer(list(xls), return_tensors="pt", padding=True, truncation=self.truncation)
-                xls_2 = self.tokenizer(list(xls), return_tensors="tf")
+                xls_2 = self.tokenizer(list(xls), return_tensors="tf", padding=True, truncation=self.truncation)
                 # xls = self.tokenizer(xls, return_tensors="pt")
                 print("\nafter tokenizer")
                 print(xls_2)
