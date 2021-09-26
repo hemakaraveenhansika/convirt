@@ -183,6 +183,8 @@ class SimCLR(object):
         with torch.no_grad():  # turn off gradients computation
             # Dataloaders
             test_loader = self.dataset.get_test_data_loaders()
+            test_loader_iter = iter(test_loader)
+            processed_img = next(test_loader_iter)
 
             # Model Resnet Initialize
             # model = ModelCLR(**self.config["model"]).to(self.device)
@@ -190,15 +192,23 @@ class SimCLR(object):
             # print("Testing: Loaded pre-trained model with success.")
             print(f'Testing...')
 
-            for xis in tqdm(test_loader):
+            processed_img = processed_img.to(self.device)
+            processed_zis = model(processed_img, None)  # [N]
 
-                xis = xis.to(self.device)
-                zis = model(xis, None)  # [N]
+            processed_features = processed_zis.unsqueeze(1)
+            final_output = decoder.predict(processed_features, max_len=20)
+            print("\n zis -> final_output, Testing")
+            print(final_output)
 
-                features = zis.unsqueeze(1)
-                final_output = decoder.predict(features, max_len=20)
-                print("\n zis -> final_output, Testing")
-                print(final_output)
+            # for xis in tqdm(test_loader):
+            #
+            #     xis = xis.to(self.device)
+            #     zis = model(xis, None)  # [N]
+            #
+            #     features = zis.unsqueeze(1)
+            #     final_output = decoder.predict(features, max_len=20)
+            #     print("\n zis -> final_output, Testing")
+            #     print(final_output)
 
         print("Testing has finished...")
         # self.test(model, decoder)
