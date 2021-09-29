@@ -192,6 +192,9 @@ class DecoderRNN(nn.Module):
         inputs = torch.cat((features_squ, embeds), dim=1)
         lstm_out, self.hidden = self.lstm(inputs, self.hidden)
         outputs = self.fc(lstm_out)
+        print("\noutputs-")
+        print(outputs)
+        print(outputs.shape)
         return outputs
 
     def predict(self, inputs, max_len=20):
