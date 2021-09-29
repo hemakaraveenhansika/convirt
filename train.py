@@ -210,6 +210,9 @@ class SimCLR(object):
                 final_output = decoder.predict(features, max_len=20)
                 print("\n zis -> final_output, Testing", processed_id)
                 print(final_output)
+                xls_final = self.tokenizer.decode(final_output)
+                print("\n xls_final")
+                print(xls_final)
 
         print("Testing has finished...")
         # self.test(model, decoder)
