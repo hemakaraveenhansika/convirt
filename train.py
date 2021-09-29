@@ -24,6 +24,9 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import sys, os
 
+import matplotlib.pyplot as plt
+import skimage.io as io
+
 apex_support = False
 try:
     sys.path.append('./apex')
@@ -200,9 +203,10 @@ class SimCLR(object):
             # final_output = decoder.predict(processed_features, max_len=20)
             # print("\n zis -> final_output, Testing")
             # print(final_output)
+            img_url = ''
 
             for xis, processed_id in tqdm(test_loader):
-
+                img_url=processed_id[0]
                 xis = xis.to(self.device)
                 zis = model(xis, None)  # [N]
 
@@ -214,6 +218,8 @@ class SimCLR(object):
                 print("\n xls_final")
                 print(xls_final)
 
+        I = io.imread(img_url)
+        plt.imshow(I)
         print("Testing has finished...")
         # self.test(model, decoder)
 
@@ -239,6 +245,7 @@ class SimCLR(object):
                 final_output = decoder.predict(features, max_len=20)
                 print("\n zis -> final_output, Testing")
                 print(final_output)
+
 
         print("Testing has finished...")
 
