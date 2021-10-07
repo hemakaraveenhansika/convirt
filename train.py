@@ -136,13 +136,12 @@ class SimCLR(object):
                 print("xis :", xis.ndim, xis.shape)
                 # get the representations and the projections
                 zis, zls = model(xis, xls_1)  # [N,C]
-                print("\nzis")
-                print(zis)
+                # print("\nzis")
+                # print(zis)
                 print("zis :", zis.ndim, zis.shape)
                 #decoder
                 output = decoder(zis, xls_2)
-                print("lstm output")
-                print(output)
+                print("lstm output", output.ndim, output.shape)
 
                 # get the representations and the projections
                 # zls = model_bert(xls)  # [N,C]
@@ -214,11 +213,12 @@ class SimCLR(object):
                 processed_id = test_value[1]
                 xis = xis.to(self.device)
                 xis = xis.unsqueeze(0)
-
+                print("xis :", xis.ndim, xis.shape)
                 zis = model(xis, None)  # [N]
                 print(zis)
                 print("zis :", zis.ndim, zis.shape)
 
+                zis.unsqueeze(0)
                 features = zis.unsqueeze(1)
                 final_output = decoder.predict(features, max_len=20)
                 print("\n zis -> final_output, Testing", processed_id)
