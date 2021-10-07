@@ -133,14 +133,12 @@ class SimCLR(object):
                 xis = xis.to(self.device)
                 xls_1 = xls_1.to(self.device)
 
-                print("\nxis")
-                print(xis)
                 print("xis :", xis.ndim, xis.shape)
                 # get the representations and the projections
                 zis, zls = model(xis, xls_1)  # [N,C]
-                # print("\nzis")
-                # print(zis)
-                # print("zis :", zis.ndim, zis.shape)
+                print("\nzis")
+                print(zis)
+                print("zis :", zis.ndim, zis.shape)
                 ##decoder
                 # output = decoder(zis, xls_2)
                 # print("lstm output")
@@ -247,15 +245,9 @@ class SimCLR(object):
             xis = test_value[0]
             xis = xis.to(self.device)
 
-            print("\n before")
-            print(xis)
-            print("xis :", xis.ndim, xis.shape)
-
             xis = xis.unsqueeze(0)
-            print("\n after")
-            print(xis)
-            print("xis :", xis.ndim, xis.shape)
 
+            print("xis :", xis.ndim, xis.shape)
             print(test_value[1], '\n')
 
             zis = model(xis, None)  # [N]
