@@ -247,8 +247,15 @@ class SimCLR(object):
             xis = test_value[0]
             xis = xis.to(self.device)
 
-            print(xis, '\n')
+            print("\n before")
+            print(xis)
             print("xis :", xis.ndim, xis.shape)
+
+            xis = xis.unsqueeze(0)
+            print("\n after")
+            print(xis)
+            print("xis :", xis.ndim, xis.shape)
+
             print(test_value[1], '\n')
 
             zis = model(xis, None)  # [N]
