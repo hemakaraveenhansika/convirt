@@ -137,6 +137,7 @@ class SimCLR(object):
                 zis, zls = model(xis, xls_1)  # [N,C]
                 print("\nzis")
                 print(zis)
+                print("zis :", zis.ndim, zis.shape)
                 ##decoder
                 # output = decoder(zis, xls_2)
                 # print("lstm output")
@@ -242,6 +243,7 @@ class SimCLR(object):
                 xis = xis.to(self.device)
                 zis = model(xis, None)  # [N]
                 print(zis)
+                print("zis :", zis.ndim, zis.shape)
 
                 # features = zis.unsqueeze(1)
                 # final_output = decoder.predict(features, max_len=20)
