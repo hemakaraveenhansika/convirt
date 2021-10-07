@@ -230,8 +230,8 @@ class SimCLR(object):
 
 
 
-        I = io.imread(img_url)
-        plt.imshow(I)
+        # I = io.imread(img_url)
+        # plt.imshow(I)
         print("Testing has finished...")
         # self.test(model, decoder)
 
