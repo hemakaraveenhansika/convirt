@@ -208,10 +208,16 @@ class SimCLR(object):
             # print(final_output)
             img_url = ''
 
-            for xis, processed_id in tqdm(test_loader):
-                img_url=processed_id[0]
+            for x in range(10):
+                test_value = test_loader[x]
+                xis = test_value[0]
+                processed_id = test_value[1]
                 xis = xis.to(self.device)
+                xis = xis.unsqueeze(0)
+
                 zis = model(xis, None)  # [N]
+                print(zis)
+                print("zis :", zis.ndim, zis.shape)
 
                 features = zis.unsqueeze(1)
                 final_output = decoder.predict(features, max_len=20)
@@ -220,6 +226,9 @@ class SimCLR(object):
                 xls_final = self.tokenizer.decode(final_output)
                 print("\n xls_final")
                 print(xls_final)
+
+
+
 
         I = io.imread(img_url)
         plt.imshow(I)
