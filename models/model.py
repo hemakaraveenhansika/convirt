@@ -103,9 +103,9 @@ class ModelCLR(nn.Module):
 
     def forward(self, xis, encoded_inputs):
         # print("\nforward layer")
-        # print("encoded_inputs:")
+        print("encoded_inputs:")
         # print(encoded_inputs)
-
+        print("xis :", xis.ndim, xis.shape)
         h, zis = self.image_encoder(xis)
 
         if not encoded_inputs is None:
