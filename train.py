@@ -238,12 +238,24 @@ class SimCLR(object):
             print("Testing: Loaded pre-trained model with success.")
             print(f'Testing...')
 
-            for xis, id in tqdm(test_loader):
-                print(id)
-                xis = xis.to(self.device)
-                zis = model(xis, None)  # [N]
-                print(zis)
-                print("zis :", zis.ndim, zis.shape)
+            test_value = test_loader[0]
+            print(test_value[0], '\n')
+
+            xis = test_value[0]
+            xis = xis.to(self.device)
+            print(test_value[1], '\n')
+
+            zis = model(xis, None)  # [N]
+            print(zis)
+            print("zis :", zis.ndim, zis.shape)
+
+
+            # for xis, id in tqdm(test_loader):
+            #     print(id)
+            #     xis = xis.to(self.device)
+            #     zis = model(xis, None)  # [N]
+            #     print(zis)
+            #     print("zis :", zis.ndim, zis.shape)
 
                 # features = zis.unsqueeze(1)
                 # final_output = decoder.predict(features, max_len=20)
