@@ -218,7 +218,7 @@ class SimCLR(object):
                 print(zis)
                 print("zis :", zis.ndim, zis.shape)
 
-                zis.unsqueeze(0)
+                zis = zis.unsqueeze(0)
                 features = zis.unsqueeze(1)
                 final_output = decoder.predict(features, max_len=20)
                 print("\n zis -> final_output, Testing", processed_id)
