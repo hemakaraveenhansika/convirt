@@ -265,7 +265,7 @@ class SimCLR(object):
                 zis = model(xis, None)  # [N]
                 print(zis)
                 print("zis :", zis.ndim, zis.shape)
-                txt.write(np.array_str(zis.numpy()))
+                txt.write(np.array_str(zis.cpu().numpy()))
 
                 # features = zis.unsqueeze(1)
                 # final_output = decoder.predict(features, max_len=20)
