@@ -239,36 +239,42 @@ class SimCLR(object):
             print("Testing: Loaded pre-trained model with success.")
             print(f'Testing...')
 
-            test_value = test_loader[0]
+            txt = open("/kaggle/working/myfile.txt", "a")
 
 
-            xis = test_value[0]
-            xis = xis.to(self.device)
+            # xis = test_value[0]
+            # xis = xis.to(self.device)
+            #
+            # xis = xis.unsqueeze(0)
+            #
+            # print("xis :", xis.ndim, xis.shape)
+            # print(test_value[1], '\n')
+            #
+            # zis = model(xis, None)  # [N]
+            # print(zis)
+            # print("zis :", zis.ndim, zis.shape)
 
-            xis = xis.unsqueeze(0)
 
-            print("xis :", xis.ndim, xis.shape)
-            print(test_value[1], '\n')
+            for x in range(10):
+                test_value = test_loader[x]
+                xis = test_value[0]
+                print(test_value[1])
+                xis = xis.to(self.device)
+                xis = xis.unsqueeze(0)
 
-            zis = model(xis, None)  # [N]
-            print(zis)
-            print("zis :", zis.ndim, zis.shape)
-
-
-            # for xis, id in tqdm(test_loader):
-            #     print(id)
-            #     xis = xis.to(self.device)
-            #     zis = model(xis, None)  # [N]
-            #     print(zis)
-            #     print("zis :", zis.ndim, zis.shape)
+                zis = model(xis, None)  # [N]
+                print(zis)
+                print("zis :", zis.ndim, zis.shape)
+                txt.write(zis)
 
                 # features = zis.unsqueeze(1)
                 # final_output = decoder.predict(features, max_len=20)
                 # print("\n zis -> final_output, Testing")
                 # print(final_output)
 
+            txt.close()
 
-        print("Testing has finished...")
+    print("Testing has finished...")
 
 
     def _load_pre_trained_weights(self, model):
