@@ -139,10 +139,10 @@ class SimCLR(object):
                 print("\nzis")
                 print(zis)
                 print("zis :", zis.ndim, zis.shape)
-                ##decoder
-                # output = decoder(zis, xls_2)
-                # print("lstm output")
-                # print(output)
+                #decoder
+                output = decoder(zis, xls_2)
+                print("lstm output")
+                print(output)
 
                 # get the representations and the projections
                 # zls = model_bert(xls)  # [N,C]
@@ -165,7 +165,7 @@ class SimCLR(object):
                 optimizer.step()
                 # optimizer_bert.step()
                 n_iter += 1
-                
+
             # validate the model if requested
             if epoch_counter % self.config['eval_every_n_epochs'] == 0:
                 valid_loss = self._validate(model, valid_loader, n_iter)
@@ -183,47 +183,47 @@ class SimCLR(object):
                 scheduler.step()
             self.writer.add_scalar('cosine_lr_decay', scheduler.get_lr()[0], global_step=n_iter)
 
-        # print("Training has finished...")
-        #
-        # print("\n\nTesting has started...")
-        # with torch.no_grad():  # turn off gradients computation
-        #     # Dataloaders
-        #     test_loader = self.dataset.get_test_data_loaders()
-        #     # test_loader_iter = iter(test_loader)
-        #     # processed_img, processed_id = next(test_loader_iter)
-        #
-        #     # Model Resnet Initialize
-        #     # model = ModelCLR(**self.config["model"]).to(self.device)
-        #     # model = self._load_pre_trained_weights_test(model)
-        #     # print("Testing: Loaded pre-trained model with success.")
-        #     print(f'Testing...')
-        #     # print(processed_img)
-        #     #
-        #     # processed_img = processed_img.to(self.device)
-        #     # processed_zis = model(processed_img, None)  # [N]
-        #     #
-        #     # processed_features = processed_zis.unsqueeze(1)
-        #     # final_output = decoder.predict(processed_features, max_len=20)
-        #     # print("\n zis -> final_output, Testing")
-        #     # print(final_output)
-        #     img_url = ''
-        #
-        #     for xis, processed_id in tqdm(test_loader):
-        #         img_url=processed_id[0]
-        #         xis = xis.to(self.device)
-        #         zis = model(xis, None)  # [N]
-        #
-        #         features = zis.unsqueeze(1)
-        #         final_output = decoder.predict(features, max_len=20)
-        #         print("\n zis -> final_output, Testing", processed_id)
-        #         print(final_output)
-        #         xls_final = self.tokenizer.decode(final_output)
-        #         print("\n xls_final")
-        #         print(xls_final)
-        #
-        # I = io.imread(img_url)
-        # plt.imshow(I)
-        # print("Testing has finished...")
+        print("Training has finished...")
+
+        print("\n\nTesting has started...")
+        with torch.no_grad():  # turn off gradients computation
+            # Dataloaders
+            test_loader = self.dataset.get_test_data_loaders()
+            # test_loader_iter = iter(test_loader)
+            # processed_img, processed_id = next(test_loader_iter)
+
+            # Model Resnet Initialize
+            # model = ModelCLR(**self.config["model"]).to(self.device)
+            # model = self._load_pre_trained_weights_test(model)
+            # print("Testing: Loaded pre-trained model with success.")
+            print(f'Testing...')
+            # print(processed_img)
+            #
+            # processed_img = processed_img.to(self.device)
+            # processed_zis = model(processed_img, None)  # [N]
+            #
+            # processed_features = processed_zis.unsqueeze(1)
+            # final_output = decoder.predict(processed_features, max_len=20)
+            # print("\n zis -> final_output, Testing")
+            # print(final_output)
+            img_url = ''
+
+            for xis, processed_id in tqdm(test_loader):
+                img_url=processed_id[0]
+                xis = xis.to(self.device)
+                zis = model(xis, None)  # [N]
+
+                features = zis.unsqueeze(1)
+                final_output = decoder.predict(features, max_len=20)
+                print("\n zis -> final_output, Testing", processed_id)
+                print(final_output)
+                xls_final = self.tokenizer.decode(final_output)
+                print("\n xls_final")
+                print(xls_final)
+
+        I = io.imread(img_url)
+        plt.imshow(I)
+        print("Testing has finished...")
         # self.test(model, decoder)
 
     def test(self):
