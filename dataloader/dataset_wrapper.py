@@ -72,14 +72,15 @@ class DataSetWrapper(object):
                                 )
 
         print("num_test len : ", len(test_dataset))
+        print(test_dataset)
         # print("train_dataset_data1")
         # print(train_dataset[0]['phrase'])
         # print("train_dataset_data2")
 
-        test_loader = DataLoader(test_dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
+        # test_loader = DataLoader(test_dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
         print("load test_loader....")
 
-        return test_loader
+        return test_dataset
 
     def _get_simclr_pipeline_transform(self):
         # get a set of data augmentation transformations as described in the SimCLR paper.

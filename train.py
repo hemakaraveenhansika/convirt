@@ -238,8 +238,8 @@ class SimCLR(object):
             print("Testing: Loaded pre-trained model with success.")
             print(f'Testing...')
 
-            for xis in tqdm(test_loader):
-
+            for xis, id in tqdm(test_loader):
+                print(id)
                 xis = xis.to(self.device)
                 zis = model(xis, None)  # [N]
                 print(zis)
