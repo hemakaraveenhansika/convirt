@@ -192,9 +192,9 @@ class DecoderRNN(nn.Module):
         inputs = torch.cat((features_squ, embeds), dim=1)
         lstm_out, self.hidden = self.lstm(inputs, self.hidden)
         outputs = self.fc(lstm_out)
-        print("\noutputs-")
-        print(outputs)
-        print(outputs.shape)
+        # print("\noutputs-")
+        # print(outputs)
+        # print(outputs.shape)
         return outputs
 
     def predict(self, inputs, max_len=20):
@@ -210,9 +210,9 @@ class DecoderRNN(nn.Module):
             lstm_out, hidden = self.lstm(inputs, hidden)
             outputs = self.fc(lstm_out)
 
-            print("\noutputs before")
-            print(outputs)
-            print(outputs.shape, outputs.ndim)
+            # print("\noutputs before")
+            # print(outputs)
+            # print(outputs.shape, outputs.ndim)
 
             outputs = outputs.squeeze(1)
             print("\noutputs after")
@@ -222,11 +222,8 @@ class DecoderRNN(nn.Module):
             _, max_idx = torch.max(outputs, dim=1)
             final_output.append(max_idx.cpu().numpy()[0].item())
 
-            print("\nmax_idx")
-            print(max_idx)
-
-            print("\nfinal_output")
-            print(final_output)
+            print("\nmax_idx", max_idx)
+            print("\nfinal_output", final_output)
 
             if ((max_idx == 1) or (len(final_output) >= 20)):
                 break
