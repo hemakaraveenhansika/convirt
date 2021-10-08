@@ -30,7 +30,8 @@ class ClrDataset(Dataset):
             transform (callable, optional): Optional transform to be applied
                 on a sample.
         """
-        self.clr_frame = pd.read_csv(csv_file, nrows=2000)   #read only first 2000 rows
+        # self.clr_frame = pd.read_csv(csv_file, nrows=2000)   #read only first 2000 rows
+        self.clr_frame = pd.read_csv(csv_file)   #read only first 2000 rows
         self.img_root_dir = img_root_dir
         self.transform = transform
         self.input_shape = input_shape
