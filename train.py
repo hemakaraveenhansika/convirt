@@ -214,7 +214,7 @@ class SimCLR(object):
             # print(final_output)
             img_url = ''
 
-            for x in range(10):
+            for x in range(len(test_loader)):
 
                 #encode
                 test_value = test_loader[x]
@@ -222,10 +222,10 @@ class SimCLR(object):
                 processed_id = test_value[1]
                 xis = xis.to(self.device)
                 xis = xis.unsqueeze(0)
-                print("\n\nxis :", xis.ndim, xis.shape)
+                # print("\n\nxis :", xis.ndim, xis.shape)
                 zis = model(xis, None)  # [N]
-                print(zis)
-                print("zis :", zis.ndim, zis.shape)
+                # print(zis)
+                print("test_loader", x)
 
                 temp = zis.cpu().numpy()
                 print(temp)
