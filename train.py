@@ -228,7 +228,7 @@ class SimCLR(object):
                 print("test_loader", x)
 
                 temp = zis.cpu().numpy()
-                print(temp)
+                # print(temp)
                 base64_encode = base64.b64encode(temp)
                 name = processed_id.split('/')[6]
                 test_result.append([name, base64_encode])
