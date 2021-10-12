@@ -227,9 +227,9 @@ class SimCLR(object):
                 print(zis)
                 print("zis :", zis.ndim, zis.shape)
 
-                base64 = base64.b64encode(zis)
+                base64_encode = base64.b64encode(zis)
                 name = processed_id.split('/')[6]
-                test_result.append([name, base64])
+                test_result.append([name, base64_encode])
 
                 #decode
                 # zis = zis.unsqueeze(0)
