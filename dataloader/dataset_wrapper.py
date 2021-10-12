@@ -29,6 +29,7 @@ class DataSetWrapper(object):
         self.s = s
         self.input_shape = eval(input_shape)
         self.csv_file = csv_file
+        self.csv_test_file = csv_test_file
         self.img_root_dir = img_root_dir
         self.img_path_col = img_path_col 
         self.text_col = text_col
