@@ -60,7 +60,7 @@ class DataSetWrapper(object):
 
     def get_test_data_loaders(self):
         data_augment = self._get_simclr_pipeline_transform()
-        test_dataset = ClrDataset(csv_file=self.csv_file,
+        test_dataset = ClrDataset(csv_file=self.csv_test_file,
                                     img_root_dir=self.img_root_dir,
                                     input_shape = self.input_shape,
                                     img_path_col = self.img_path_col,

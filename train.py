@@ -202,7 +202,7 @@ class SimCLR(object):
             # model = ModelCLR(**self.config["model"]).to(self.device)
             # model = self._load_pre_trained_weights_test(model)
             # print("Testing: Loaded pre-trained model with success.")
-            print(f'Testing...')
+            print(f'Testing...', len(test_loader))
             # print(processed_img)
             #
             # processed_img = processed_img.to(self.device)
