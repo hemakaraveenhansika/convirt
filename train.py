@@ -242,7 +242,7 @@ class SimCLR(object):
                 # xls_final = self.tokenizer.decode(final_output)
                 # print("\n xls_final")
                 # print(xls_final)
-            print(test_result)
+            # print(test_result)
             with open("/kaggle/working/result.csv", 'w') as csvfile:
                 # creating a csv writer object
                 csvwriter = csv.writer(csvfile)
