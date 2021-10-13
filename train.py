@@ -230,6 +230,13 @@ class SimCLR(object):
                 temp = zis.cpu().numpy()
                 # print(temp)
                 base64_encode = base64.b64encode(temp)
+                print(temp)
+
+                #b64encode to array
+                print(temp.dtype)
+                r = base64.decodebytes(temp)
+                q = np.frombuffer(r, dtype=np.float64)
+
                 name = processed_id.split('/')[6]
                 test_result.append([name, base64_encode])
 
