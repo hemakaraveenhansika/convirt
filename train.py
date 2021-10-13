@@ -214,7 +214,7 @@ class SimCLR(object):
             # print(final_output)
             img_url = ''
 
-            for x in range(len(test_loader)):
+            for x in range(10):
 
                 #encode
                 test_value = test_loader[x]
@@ -235,7 +235,8 @@ class SimCLR(object):
                 #b64encode to array
                 print(temp.dtype)
                 r = base64.decodebytes(temp)
-                q = np.frombuffer(r, dtype=np.float64)
+                q = np.frombuffer(r, dtype=np.float32)
+                print(q)
 
                 name = processed_id.split('/')[6]
                 test_result.append([name, base64_encode])
