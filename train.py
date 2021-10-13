@@ -143,7 +143,7 @@ class SimCLR(object):
                 # print("zis :", zis.ndim, zis.shape)
 
                 #decoder
-                # output = decoder(zis, xls_2)
+                output = decoder(zis, xls_2)
                 # print("lstm output", output.ndim, output.shape)
 
                 # get the representations and the projections
@@ -225,37 +225,35 @@ class SimCLR(object):
                 # print("\n\nxis :", xis.ndim, xis.shape)
                 zis = model(xis, None)  # [N]
                 # print(zis)
-                print("test_loader", x)
-
-                temp = zis.cpu().numpy()
-                # print(temp)
-                base64_encode = base64.b64encode(temp)
-                print(temp)
-
-                #b64encode to array
-                print(temp.dtype)
-                r = base64.decodebytes(base64_encode)
-                q = np.frombuffer(r, dtype=np.float32)
-                print(q)
-
-                name = processed_id.split('/')[6]
-                test_result.append([name, base64_encode])
+                # print("test_loader", x)
+                #
+                # # array to b64encode
+                # temp = zis.cpu().numpy()
+                # base64_encode = base64.b64encode(temp)
+                #
+                # #b64encode to array
+                # decodebytes = base64.decodebytes(base64_encode)
+                # decodearray = np.frombuffer(decodebytes, dtype=np.float32)
+                #
+                # name = processed_id.split('/')[6]
+                # test_result.append([name, base64_encode])
 
                 #decode
-                # zis = zis.unsqueeze(0)
-                # features = zis.unsqueeze(1)
-                # final_output = decoder.predict(features, max_len=20)
-                # print("\n zis -> final_output, Testing", processed_id)
-                # print(final_output)
-                # xls_final = self.tokenizer.decode(final_output)
-                # print("\n xls_final")
-                # print(xls_final)
+                zis = zis.unsqueeze(0)
+                features = zis.unsqueeze(1)
+                final_output = decoder.predict(features, max_len=20)
+                print("\n zis -> final_output, Testing", processed_id)
+                print(final_output)
+                xls_final = self.tokenizer.decode(final_output)
+                print("\n xls_final")
+                print(xls_final)
             # print(test_result)
-            with open("/kaggle/working/result.csv", 'w') as csvfile:
-                # creating a csv writer object
-                csvwriter = csv.writer(csvfile)
-                # writing the data rows
-                csvwriter.writerows(test_result)
+
+            # with open("/kaggle/working/result.csv", 'w') as csvfile:
+            #     # creating a csv writer object
+            #     csvwriter = csv.writer(csvfile)
+            #     # writing the data rows
+            #     csvwriter.writerows(test_result)
 
 
         # I = io.imread(img_url)
