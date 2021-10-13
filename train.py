@@ -234,7 +234,7 @@ class SimCLR(object):
 
                 #b64encode to array
                 print(temp.dtype)
-                r = base64.decodebytes(temp)
+                r = base64.decodebytes(base64_encode)
                 q = np.frombuffer(r, dtype=np.float32)
                 print(q)
 
