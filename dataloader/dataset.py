@@ -14,7 +14,8 @@ class ClrDataset(Dataset):
     print("Contrastive Learning Representations Dataset - ClrDataset")
     def __init__(self, 
                 csv_file, 
-                img_root_dir, 
+                img_root_dir,
+                img_root_dir_test,
                 input_shape, 
                 img_path_col, 
                 text_col, 
@@ -33,6 +34,7 @@ class ClrDataset(Dataset):
         self.clr_frame = pd.read_csv(csv_file, nrows=200)   #read only first 2000 rows
         # self.clr_frame = pd.read_csv(csv_file)   #read only first 2000 rows
         self.img_root_dir = img_root_dir
+        self.img_root_dir_test = img_root_dir_test
         self.transform = transform
         self.input_shape = input_shape
         self.img_path_col = int(img_path_col)
@@ -57,6 +59,13 @@ class ClrDataset(Dataset):
         
 
         if self.mode == 'train':
+
+            img_name = os.path.join(self.img_root_dir, self.clr_frame.iloc[idx, self.img_path_col])
+            image = Image.open(img_name)
+
+            if self.input_shape[2] == 3:
+                image = image.convert('RGB')
+
             #chooosig a phrase
             if not self.text_from_files:
                 # print('image: ', img_name)
@@ -81,6 +90,13 @@ class ClrDataset(Dataset):
 
             sample = {'image': image, 'phrase': phrase}
         else :
+
+            img_name = os.path.join(self.img_root_dir_test, self.clr_frame.iloc[idx, self.img_path_col])
+            image = Image.open(img_name)
+
+            if self.input_shape[2] == 3:
+                image = image.convert('RGB')
+
             sample = {'image': image, 'img_id': img_name}
 
         if self.transform:

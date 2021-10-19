@@ -18,7 +18,8 @@ class DataSetWrapper(object):
                 s, 
                 csv_file,
                 csv_test_file,
-                img_root_dir, 
+                img_root_dir,
+                img_root_dir_test,
                 img_path_col, 
                 text_col, 
                 text_from_files, 
@@ -32,6 +33,7 @@ class DataSetWrapper(object):
         self.csv_file = csv_file
         self.csv_test_file = csv_test_file
         self.img_root_dir = img_root_dir
+        self.img_root_dir_test = img_root_dir_test
         self.img_path_col = img_path_col 
         self.text_col = text_col
         self.text_from_files = text_from_files
@@ -42,6 +44,7 @@ class DataSetWrapper(object):
         data_augment = self._get_simclr_pipeline_transform()
         train_dataset = ClrDataset(csv_file=self.csv_file,
                                     img_root_dir=self.img_root_dir,
+                                    img_root_dir_test=self.img_root_dir_test,
                                     input_shape = self.input_shape,
                                     img_path_col = self.img_path_col, 
                                     text_col = self.text_col, 
@@ -64,6 +67,7 @@ class DataSetWrapper(object):
         data_augment = self._get_simclr_pipeline_transform()
         test_dataset = ClrDataset(csv_file=self.csv_test_file,
                                     img_root_dir=self.img_root_dir,
+                                    img_root_dir_test=self.img_root_dir_test,
                                     input_shape = self.input_shape,
                                     img_path_col = self.img_path_col,
                                     text_col = self.text_col,
