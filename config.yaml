@@ -11,7 +11,8 @@ truncation: True
 model:
   out_dim: 512
   res_base_model: "resnet50"
-  bert_base_model: 'emilyalsentzer/Bio_ClinicalBERT'
+#  bert_base_model: 'emilyalsentzer/Bio_ClinicalBERT'
+  bert_base_model: 'bert-base-uncased'
   freeze_layers: [0,1,2,3,4,5]
   do_lower_case: False
   
