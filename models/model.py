@@ -230,5 +230,5 @@ class DecoderRNN(nn.Module):
 
             inputs = self.word_embedding(max_idx)
             inputs = inputs.unsqueeze(1)
-        print("\nfinal_output", final_output)
+
         return final_output
