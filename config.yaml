@@ -27,7 +27,7 @@ dataset:
 #  csv_test_file: '/kaggle/working/iu_data.csv'
   text_from_files: False # If 'True' the text input will be read from .txt files, if 'False' it will be loaded direct from the CSV File
   img_root_dir: '/kaggle/input/coco-2017-dataset/coco2017/train2017/'
-  img_root_dir_test: '/kaggle/input/coco-2017-dataset/coco2017/train2017/'
+  img_root_dir_test: '/kaggle/input/coco-2017-dataset/coco2017/val2017/'
 #  img_root_dir: '/kaggle/input/chest-xrays-indiana-university/images/images_normalized/'
 #  img_root_dir_test: '/kaggle/input/chest-xrays-indiana-university/images/images_normalized/'
   text_root_dir: '/your/root/text/directory' # The root directory for the text files if "text_from_files" is True
