@@ -214,7 +214,7 @@ class SimCLR(object):
             # print(final_output)
             img_url = ''
 
-            for x in range(10):
+            for x in range(20):
 
                 #encode
                 test_value = test_loader[x]
