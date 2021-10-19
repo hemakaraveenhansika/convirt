@@ -204,7 +204,7 @@ class DecoderRNN(nn.Module):
 
         print("inputs")
         print(inputs)
-        print(inputs.shape, inputs.ndim)
+        # print(inputs.shape, inputs.ndim)
 
         while True:
             lstm_out, hidden = self.lstm(inputs, hidden)
@@ -215,19 +215,20 @@ class DecoderRNN(nn.Module):
             # print(outputs.shape, outputs.ndim)
 
             outputs = outputs.squeeze(1)
-            print("\noutputs after")
-            print(outputs)
-            print(outputs.shape, outputs.ndim)
+            # print("\noutputs after")
+            # print(outputs)
+            # print(outputs.shape, outputs.ndim)
 
             _, max_idx = torch.max(outputs, dim=1)
             final_output.append(max_idx.cpu().numpy()[0].item())
 
-            print("\nmax_idx", max_idx)
-            print("\nfinal_output", final_output)
+            # print("\nmax_idx", max_idx)
+            # print("\nfinal_output", final_output)
 
             if ((max_idx == 1) or (len(final_output) >= 20)):
                 break
 
             inputs = self.word_embedding(max_idx)
             inputs = inputs.unsqueeze(1)
+        print("\nfinal_output", final_output)
         return final_output
