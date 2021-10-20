@@ -29,9 +29,13 @@ class ModelCLR(nn.Module):
         self.bert_l2 = nn.Linear(768, out_dim) #768 is the size of the BERT embbedings
 
         # init Resnet
-        self.resnet_dict = {"resnet18": models.resnet18(pretrained=False),
-                            "resnet50": models.resnet50(pretrained=False)}
+        self.resnet_dict = {"resnet18": models.resnet18(pretrained=True),
+                            "resnet50": models.resnet50(pretrained=True)}
         resnet = self._get_res_basemodel(res_base_model)
+
+        for param in resnet.parameters():
+            param.requires_grad_(False)
+
         num_ftrs = resnet.fc.in_features
         self.res_features = nn.Sequential(*list(resnet.children())[:-1])
         # projection MLP for ResNet Model
