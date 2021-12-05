@@ -140,7 +140,7 @@ class SimCLR(object):
                 zis, zls = model(xis, xls_1)  # [N,C]
                 # print("\nzis")
                 # print(zis)
-                # print("zis :", zis.ndim, zis.shape)
+                print("zis zls:", zis.shape, zls.shape)
 
                 #decoder
                 output = decoder(zis, xls_2)
