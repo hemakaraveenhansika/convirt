@@ -113,7 +113,9 @@ class ModelCLR(nn.Module):
         h, zis = self.image_encoder(xis)
 
         if not encoded_inputs is None:
+            print("encoded_inputs.shape", encoded_inputs.shape)
             zls = self.text_encoder(encoded_inputs)
+            print("zls.shape", zls.shape)
             # print("end image_encoder, text_encoder")
             # print("\n zis - v")
             # print(zis)
