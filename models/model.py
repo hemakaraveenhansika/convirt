@@ -98,7 +98,11 @@ class ModelCLR(nn.Module):
         # print(outputs)
 
         with torch.no_grad():
-            sentence_embeddings = self.mean_pooling(outputs, encoded_inputs['attention_mask']).half()
+            v = self.mean_pooling(outputs, encoded_inputs['attention_mask'])
+            print(v.dtype)
+            print((v.half()).dtype)
+            sentence_embeddings = v.half()
+            # sentence_embeddings = self.mean_pooling(outputs, encoded_inputs['attention_mask']).half()
             x = self.bert_l1(sentence_embeddings)
             x = F.relu(x)
             out_emb = self.bert_l2(x)
