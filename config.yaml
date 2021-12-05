@@ -15,26 +15,28 @@ model:
   bert_base_model: 'bert-base-uncased'
   freeze_layers: [0,1,2,3,4,5]
   do_lower_case: False
-  
+
+#../input/d/hemakahansika/iuxraysplits/training_data
+
 dataset:
   s: 1
   input_shape: (224,224,3)
   num_workers: 4
   valid_size: 0.1
-  csv_file: '/kaggle/input/coco-csv/coco_train_data.csv'
-  csv_test_file: '/kaggle/input/coco-csv/coco_test_data.csv'
-#  csv_file: '/kaggle/working/iu_training_data.csv'
-#  csv_test_file: '/kaggle/working/iu_data.csv'
+#  csv_file: '/kaggle/input/coco-csv/coco_train_data.csv'
+#  csv_test_file: '/kaggle/input/coco-csv/coco_test_data.csv'
+  csv_file: '/kaggle/working/iu_training_data.csv'
+  csv_test_file: '/kaggle/working/iu_data.csv'
   text_from_files: False # If 'True' the text input will be read from .txt files, if 'False' it will be loaded direct from the CSV File
-  img_root_dir: '/kaggle/input/coco-2017-dataset/coco2017/train2017/'
-  img_root_dir_test: '/kaggle/input/coco-2017-dataset/coco2017/val2017/'
-#  img_root_dir: '/kaggle/input/chest-xrays-indiana-university/images/images_normalized/'
-#  img_root_dir_test: '/kaggle/input/chest-xrays-indiana-university/images/images_normalized/'
+#  img_root_dir: '/kaggle/input/coco-2017-dataset/coco2017/train2017/'
+#  img_root_dir_test: '/kaggle/input/coco-2017-dataset/coco2017/val2017/'
+  img_root_dir: '/kaggle/input/chest-xrays-indiana-university/images/images_normalized/'
+  img_root_dir_test: '/kaggle/input/chest-xrays-indiana-university/images/images_normalized/'
   text_root_dir: '/your/root/text/directory' # The root directory for the text files if "text_from_files" is True
-#  img_path_col: 2 # index for the image path column in the CSV dataframe.
-#  text_col: 9 # index for the text column in the CSV dataframe. If text_from_files is 'True' it should contain the relative path for the files from the 'text_root_dir', if text_from_files is 'False' this column should contain the respective input text in its own cells.
-  img_path_col: 0
-  text_col: 1
+  img_path_col: 2 # index for the image path column in the CSV dataframe.
+  text_col: 9 # index for the text column in the CSV dataframe. If text_from_files is 'True' it should contain the relative path for the files from the 'text_root_dir', if text_from_files is 'False' this column should contain the respective input text in its own cells.
+#  img_path_col: 0
+#  text_col: 1
 loss:
   temperature: 0.1
   use_cosine_similarity: True
